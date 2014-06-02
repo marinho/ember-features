@@ -60,6 +60,11 @@
                       </div>
                     </form>
                 </div>
+
+                {{#view Ember.Feature feature="formField" layoutName="show_only_permitted"}}
+                    <p>Some other feature</p>
+                {{/view}}
+
                 {{view Ember.Feature feature="formPanel" layoutName="upgrade_message"}}
             </form>
 
@@ -71,6 +76,12 @@
             </p>
         </script>
 		
+        <script type="text/x-handlebars" data-template-name="show_only_permitted">
+            {{#if view.hasPermission }}
+                <i>{{yield}}</i>
+            {{/if}}
+		</script>
+	
         <script type="text/x-handlebars" data-template-name="upgrade_message">
             {{#if view.hasPermission }}
                 <i>{{yield}}</i>
