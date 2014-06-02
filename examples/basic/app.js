@@ -17,6 +17,9 @@ App.Features = Em.Features.create({
         this.feature("linkYahoo", {
             defaultPermission: true
         });
+        this.feature("linkPage1", {
+            defaultPermission: true
+        });
         this.feature("formField", {
             defaultPermission: true
         });
@@ -32,13 +35,27 @@ App.Features = Em.Features.create({
 
 
 App.IndexController = Ember.ObjectController.extend({
-    featuresJson: '{"linkGoogle": false, "linkYahoo": false, "formField": false, "formPanel": false}',
+    featuresJson: '{"linkGoogle": false, "linkYahoo": false, "linkPage1": false, "formField": false, "formPanel": false}',
 
     actions: {
         updateFeatures: function(){
             var permissions = JSON.parse(this.get("featuresJson"));
-            console.log(111, permissions); // XXX
             App.Features.update(permissions)
         },
     }
 })
+
+
+App.Page1Route = Ember.Route.extend({
+    beforeModel: function(transition) {
+        var _this = this;
+
+        App.Features.hasPermission("linkPage1", function(permission){
+            if (!permission) {
+                alert("This page is not available.");
+                _this.transitionTo("index");
+            }
+        });
+    }
+});
+
