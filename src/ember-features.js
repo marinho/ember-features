@@ -120,3 +120,5 @@ Ember.Feature = Ember.View.extend({
         this._super();
     },
 });
+
+Ember.Handlebars.helper('feature', Ember.Feature);
